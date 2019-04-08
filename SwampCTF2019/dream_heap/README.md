@@ -77,9 +77,9 @@ unsigned __int64 new_dream()
   return __readfsqword(0x28u) ^ canary;
 }
 ```
-Remember that SIZES is 8 pointers after HEAP_PTRS. Thus we can overflow HEAP_PTRS into SIZES. Normally this would not be a problem, but HEAP_PTRS is of size 8 (pointers), while SIZES is of size 4 (int32). So at the 20th write, the lower 4 bytes of HEAP_PTRS[18] and SIZES[20] will overlap. So we can change HEAP_PTRS[18] to point to puts@got instead of a heap chunk.
+Remember that SIZES is 8 pointers after HEAP_PTRS. Thus we can overflow HEAP_PTRS into SIZES. Normally this would not be a problem, but HEAP_PTRS is of size 8 (pointers), while SIZES is of size 4 (int32). So at the 20th write, the lower 4 bytes of HEAP_PTRS[18] and SIZES[20] will overlap. So we can change HEAP_PTRS[18] to point to `puts@got` instead of a heap chunk.
 
-Nos we will use the `Edit dream` function to change the content of a dream/"heap chunk":
+Now we will use the `Edit dream` function to change the content of a dream/"heap chunk":
 
 ```
 unsigned __int64 edit_dream()
@@ -107,10 +107,10 @@ unsigned __int64 edit_dream()
   return __readfsqword(0x28u) ^ v4;
 }
 ```
-As you probably see now, if we edit HEAP_PTRS[18], we don't actually edit a heap chunk but the content of puts@got. So we simply overwrite puts@got to point to one_gadget. The next puts call will now give us shell.
+As you probably see, if we edit HEAP_PTRS[18], we don't actually edit a heap chunk but the content of `puts@got`. So we simply overwrite `puts@got` to point to `one_gadget`. The next `puts` call will now give us shell.
 
 
-Here the full exploit:
+Here is the full exploit:
 
 ```
 #!/usr/bin/env python2
