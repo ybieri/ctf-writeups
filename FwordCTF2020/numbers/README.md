@@ -162,4 +162,4 @@ FwordCTF{s1gN3d_nuMb3R5_c4n_b3_d4nG3r0us}
 $
 ```
 
-The full exploit can be found in [xpl.py](https://github.com/ybieri/ctf-writeups/edit/master/FwordCTF2020/numbers/xpl.py).
+The full exploit can be found in [xpl.py](https://github.com/ybieri/ctf-writeups/blob/master/FwordCTF2020/numbers/xpl.py).
