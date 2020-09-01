@@ -109,7 +109,7 @@ io.sendafter("are yo sure ??", payload)
 io.recvuntil("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBB")
 ```
 
-Analyzing the address of the leak and using `https://libc.blukat.me/` we identify that `libc6_2.28-0ubuntu1_amd64.so` is used on the remote server. Knowing this, we can  exploit the buffer overflow a second time, now calling `system('/bin/sh')`. We just have to make sure that `RSP` is 0x10 bytes aligned (which it was not if called directly). We could do this using a `pop` gadget or by calling puts with some value and hoping to have better alignment:
+Analyzing the address of the leak and using the [libc database](https://libc.blukat.me/) we identify that `libc6_2.28-0ubuntu1_amd64.so` is used on the remote server. Knowing this, we can  exploit the buffer overflow a second time, now calling `system('/bin/sh')`. We just have to make sure that `RSP` is 0x10 bytes aligned (which it was not if called directly). We could do this using a `pop` gadget or by calling puts with some value and hoping to have better alignment:
 
 ```python
 io.sendlineafter("do you have any number in mind ??", "-3") # negative number <=60 in signed comparision. Will read a lot of data
@@ -162,4 +162,4 @@ FwordCTF{s1gN3d_nuMb3R5_c4n_b3_d4nG3r0us}
 $
 ```
 
-The full exploit can be found in `xpl.py`.
+The full exploit can be found in [xpl.py](https://github.com/ybieri/ctf-writeups/edit/master/FwordCTF2020/numbers/xpl.py).
